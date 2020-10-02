@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,10 +10,14 @@ namespace Repairshop.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Display(Name = "Street Name")]
         public string StreetName { get; set; }
         public string City { get; set; }
+        [Display(Name = "Post Code")]
         public string PostCode { get; set; }
 
         public class MyDbContext : IdentityDbContext<ApplicationUser>
