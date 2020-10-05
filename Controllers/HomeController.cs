@@ -26,5 +26,11 @@ namespace Repairshop.Controllers
 
             return View();
         }
+
+        [Authorize]
+        public ActionResult Edit()
+        {
+            return View();
+        }
     }
 }

@@ -216,9 +216,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010050823131_test1.cs" />
-    <Compile Include="Migrations\202010050823131_test1.Designer.cs">
-      <DependentUpon>202010050823131_test1.cs</DependentUpon>
+    <Compile Include="Migrations\202010050936218_added-roles.cs" />
+    <Compile Include="Migrations\202010050936218_added-roles.Designer.cs">
+      <DependentUpon>202010050936218_added-roles.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -229,7 +229,7 @@
     <Compile Include="Models\part.cs" />
     <Compile Include="Models\RepairGuy.cs" />
     <Compile Include="Models\RepairOrder.cs" />
-    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DbAccesPoint.cs" />
@@ -294,6 +294,7 @@
     <Content Include="Views\RepairOrders\RepairOrdersController.cshtml" />
     <Content Include="Views\RepairOrders\Index.cshtml" />
     <Content Include="Views\RepairOrders\Details.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -312,8 +313,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010050823131_test1.resx">
-      <DependentUpon>202010050823131_test1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010050936218_added-roles.resx">
+      <DependentUpon>202010050936218_added-roles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Repairshop.Services;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Security;
 
 namespace Repairshop.Models
 {
@@ -79,6 +84,15 @@ namespace Repairshop.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        public string chosenrole { get; set; }
+
+        [Required]
+        [Display(Name = "Roles")]
+        public IEnumerable<IdentityRole> Roles { get; }
+
     }
 
     public class ResetPasswordViewModel

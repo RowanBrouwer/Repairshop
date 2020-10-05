@@ -1,8 +1,12 @@
-﻿using Repairshop.Models;
+﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Repairshop.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,5 +48,6 @@ namespace Repairshop.Services
         {
             return db.repairOrders.OrderBy(r => r.status);
         }
+
     }
 }
