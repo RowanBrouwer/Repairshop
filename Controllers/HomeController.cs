@@ -3,14 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Repairshop.Models;
+using Repairshop.Services;
 
 namespace Repairshop.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        DbAccesPoint db;
+
+        public HomeController(DbAccesPoint db)
         {
-            return View();
+            this.db = db;
+        }
+
+        public ActionResult Index(int Id)
+        {
+            var model = db.GetOrderById(Id);
+            if (model == null)
+            {
+                return View("0");
+            }
+            return View(model);
         }
 
         public ActionResult About()
@@ -25,6 +39,13 @@ namespace Repairshop.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Edit(int Id)
+        {
+            var model = db.GetCustomerById(Id);
+            return View(model);
         }
     }
 }

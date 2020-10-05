@@ -294,6 +294,7 @@
     <Content Include="Views\RepairOrders\RepairOrdersController.cshtml" />
     <Content Include="Views\RepairOrders\Index.cshtml" />
     <Content Include="Views\RepairOrders\Details.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
