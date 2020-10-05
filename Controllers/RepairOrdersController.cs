@@ -12,16 +12,16 @@ namespace Repairshop.Controllers
 {
     public class RepairOrdersController : Controller
     {
-        private readonly DbAccesPoint db;
+        DbAccesPoint db;
 
-        public RepairOrdersController()
+        public RepairOrdersController(DbAccesPoint db)
         {
-            
+            this.db = db;
         }
         
         public ActionResult Index()
         {
-            var model = db.GetRepairOrders();
+            IEnumerable<RepairOrder> model = db.GetRepairOrders();
             return View(model);
         }
 

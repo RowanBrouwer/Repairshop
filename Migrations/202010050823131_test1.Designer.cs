@@ -13,7 +13,7 @@ namespace Repairshop.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202010021228574_test1"; }
+            get { return "202010050823131_test1"; }
         }
         
         string IMigrationMetadata.Source
