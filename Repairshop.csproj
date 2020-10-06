@@ -216,14 +216,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010060829366_hell.cs" />
-    <Compile Include="Migrations\202010060829366_hell.Designer.cs">
-      <DependentUpon>202010060829366_hell.cs</DependentUpon>
+    <Compile Include="Migrations\202010050823131_test1.cs" />
+    <Compile Include="Migrations\202010050823131_test1.Designer.cs">
+      <DependentUpon>202010050823131_test1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AmountParts.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\part.cs" />

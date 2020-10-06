@@ -3,14 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Repairshop.Models;
+using Repairshop.Services;
 
 namespace Repairshop.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        DbAccesPoint db;
+
+        public HomeController(DbAccesPoint db)
         {
-            return View();
+            this.db = db;
+        }
+
+        public ActionResult Index(/*int Id*/)
+        {
+            /*var model = db.GetCustomerById(Id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            */
+            return View(/*model*/);
         }
 
         public ActionResult About()
@@ -28,9 +43,27 @@ namespace Repairshop.Controllers
         }
 
         [Authorize]
-        public ActionResult Edit()
+        [HttpGet]
+        public ActionResult Edit(/*int Id*/)
         {
-            return View();
+            /*var model = db.GetCustomerById(Id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            */
+            return View(/*model*/);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View(model);
         }
     }
 }
