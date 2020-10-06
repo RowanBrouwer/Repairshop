@@ -21,12 +21,14 @@ namespace Repairshop.Services
         ApplicationUser GetUserById(string Id);
         IEnumerable<RepairOrder> GetRepairOrdersByCustomerId(int Id);
         IEnumerable<RepairOrder> GetRepairOrdersByRepairGuyId(int Id);
+        ApplicationUser GetUserId(string Id);
     }
 
     public class DbCommands : DbAccesPoint
     {
-        public ApplicationDbContext db = new ApplicationDbContext();
 
+        public ApplicationDbContext db = new ApplicationDbContext();
+        
         public Customer GetCustomerById(int Id)
         {
             return db.customers.FirstOrDefault(r => r.Id == Id);
@@ -60,6 +62,18 @@ namespace Repairshop.Services
         public ApplicationUser GetUserById(string Id)
         {
             return db.Users.FirstOrDefault(r => r.Id == Id);
+        }
+
+        public ApplicationUser GetUserId(string Id)
+        {
+            
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<ApplicationUser>(db);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            return userManager.FindById(Id);
         }
     }
 }
