@@ -18,6 +18,9 @@ namespace Repairshop.Services
         IEnumerable<Customer> GetCustomers();
         Customer GetCustomerById(int Id);
         RepairOrder GetOrderById(int Id);
+        ApplicationUser GetUserById(string Id);
+        IEnumerable<RepairOrder> GetRepairOrdersByCustomerId(int Id);
+        IEnumerable<RepairOrder> GetRepairOrdersByRepairGuyId(int Id);
     }
 
     public class DbCommands : DbAccesPoint
@@ -34,14 +37,9 @@ namespace Repairshop.Services
             return db.customers.OrderBy(r => r.user.FirstName);
         }
 
-        public RepairOrder getOrderById(int Id)
-        {
-            return db.repairOrders.FirstOrDefault(r => r.Id == Id);
-        }
-
         public RepairOrder GetOrderById(int Id)
         {
-            throw new NotImplementedException();
+            return db.repairOrders.FirstOrDefault(r => r.Id == Id);
         }
 
         public IEnumerable<RepairOrder> GetRepairOrders()
@@ -49,5 +47,19 @@ namespace Repairshop.Services
             return db.repairOrders.OrderBy(r => r.status);
         }
 
+        public IEnumerable<RepairOrder> GetRepairOrdersByCustomerId(int Id)
+        {
+            return db.repairOrders.Where(r => r.customer.Id == Id);
+        }
+
+        public IEnumerable<RepairOrder> GetRepairOrdersByRepairGuyId(int Id)
+        {
+            return db.repairOrders.Where(r => r.repairGuy.Id == Id);
+        }
+
+        public ApplicationUser GetUserById(string Id)
+        {
+            return db.Users.FirstOrDefault(r => r.Id == Id);
+        }
     }
 }
