@@ -50,7 +50,7 @@ namespace Repairshop.Migrations
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "ROLE_ADMIN");
+                    userManager.AddToRole(user.Id, "Admin");
                 }
             }
 
@@ -69,7 +69,7 @@ namespace Repairshop.Migrations
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "ROLE_CUSTOMER");
+                    userManager.AddToRole(user.Id, "Customer");
                 }
             }
 
@@ -88,7 +88,7 @@ namespace Repairshop.Migrations
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "ROLE_REPAIRGUY");
+                    userManager.AddToRole(user.Id, "Repairguy");
                 }
             }
         }

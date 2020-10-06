@@ -216,9 +216,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010061135042_merge-test.cs" />
-    <Compile Include="Migrations\202010061135042_merge-test.Designer.cs">
-      <DependentUpon>202010061135042_merge-test.cs</DependentUpon>
+    <Compile Include="Migrations\202010061247451_seed-test1.cs" />
+    <Compile Include="Migrations\202010061247451_seed-test1.Designer.cs">
+      <DependentUpon>202010061247451_seed-test1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -314,8 +314,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010061135042_merge-test.resx">
-      <DependentUpon>202010061135042_merge-test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010061247451_seed-test1.resx">
+      <DependentUpon>202010061247451_seed-test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
