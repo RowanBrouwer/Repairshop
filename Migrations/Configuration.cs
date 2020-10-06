@@ -35,7 +35,7 @@ namespace Repairshop.Migrations
                 var roleresult = roleManager.Create(new IdentityRole(RoleNames.ROLE_REPAIRGUY));
             }
 
-            if (userManager.FindByNameAsync("user1").Result == null)
+            if (userManager.FindByEmail("user1@localhost") == null)
             {
                 ApplicationUser user = new ApplicationUser();
                 user.UserName = "user1";
@@ -51,6 +51,44 @@ namespace Repairshop.Migrations
                 if (result.Succeeded)
                 {
                     userManager.AddToRole(user.Id, "ROLE_ADMIN");
+                }
+            }
+
+            if (userManager.FindByEmail("user2@localhost") == null)
+            {
+                ApplicationUser user = new ApplicationUser();
+                user.UserName = "user2";
+                user.Email = "user1@localhost";
+                user.FirstName = "Bob";
+                user.LastName = "Builder";
+                Customer customer = new Customer();
+                customer.user = user;
+
+                IdentityResult result = userManager.CreateAsync
+                (user, "!Cus123").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, "ROLE_CUSTOMER");
+                }
+            }
+
+            if (userManager.FindByEmail("user3@localhost") == null)
+            {
+                ApplicationUser user = new ApplicationUser();
+                user.UserName = "user3";
+                user.Email = "user3@localhost";
+                user.FirstName = "Rowan";
+                user.LastName = "Brouwer";
+                RepairGuy repairGuy = new RepairGuy();
+                repairGuy.user = user;
+
+                IdentityResult result = userManager.CreateAsync
+                (user, "!Rep123").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, "ROLE_REPAIRGUY");
                 }
             }
         }
