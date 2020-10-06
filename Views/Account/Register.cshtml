@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Rolelist, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.RoleId, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(m => m.Rolelist, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.RoleId, new SelectList(ViewBag.roles, "Name", "Name"), new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

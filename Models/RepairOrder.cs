@@ -15,6 +15,10 @@ namespace Repairshop.Models
         public Status status { get; set; }
         public IEnumerable<part> parts { get; set; }
         public string Description { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+        [DataType(DataType.Date)]      
+        public DateTime EndDate { get; set; }
 
     }
 }

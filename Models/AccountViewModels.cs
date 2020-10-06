@@ -86,12 +86,8 @@ namespace Repairshop.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Role")]
-        public string chosenrole { get; set; }
-
-        [Required]
         [Display(Name = "Roles")]
-        public string[] Rolelist { get; }
+        public string RoleId { get; set; }
 
     }
 

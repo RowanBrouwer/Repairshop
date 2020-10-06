@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -148,10 +149,13 @@ namespace Repairshop.Controllers
         [AllowAnonymous]
         [HttpGet]
         [ActionName("Register")]
-        public ActionResult GetRegister()
+        public ActionResult GetRegister(ApplicationDbContext context)
         {
-            var Rolelist = Roles.GetAllRoles();
-            return View(Rolelist);
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+            var roles = roleMngr.Roles.ToList().OrderBy(x => x.Name);
+            ViewBag.roles = roles;
+            return View();
         }
 
         //
@@ -173,8 +177,7 @@ namespace Repairshop.Controllers
 
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
-                    
-                    
+                    userManager.AddToRole(user.Id, model.RoleId);
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
