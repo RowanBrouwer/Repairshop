@@ -13,7 +13,7 @@ namespace Repairshop.Models
         public Customer customer  { get; set; }
         public RepairGuy repairGuy { get; set; }
         public Status status { get; set; }
-        public IEnumerable<part> parts { get; set; }
+        public AmountParts parts { get; set; }
         public string Description { get; set; }
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }

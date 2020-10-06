@@ -3,7 +3,7 @@ namespace Repairshop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class seedtest1 : DbMigration
+    public partial class test1 : DbMigration
     {
         public override void Up()
         {

@@ -44,6 +44,7 @@ namespace Repairshop.Migrations
                 user.LastName = "Davolio";
                 RepairGuy repairGuy = new RepairGuy();
                 repairGuy.user = user;
+                context.repairGuys.Add(repairGuy);
 
                 IdentityResult result = userManager.CreateAsync
                 (user, "!Admin123").Result;
@@ -58,11 +59,12 @@ namespace Repairshop.Migrations
             {
                 ApplicationUser user = new ApplicationUser();
                 user.UserName = "user2";
-                user.Email = "user1@localhost";
+                user.Email = "user2@localhost";
                 user.FirstName = "Bob";
                 user.LastName = "Builder";
                 Customer customer = new Customer();
                 customer.user = user;
+                context.customers.Add(customer);
 
                 IdentityResult result = userManager.CreateAsync
                 (user, "!Cus123").Result;
@@ -82,6 +84,7 @@ namespace Repairshop.Migrations
                 user.LastName = "Brouwer";
                 RepairGuy repairGuy = new RepairGuy();
                 repairGuy.user = user;
+                context.repairGuys.Add(repairGuy);
 
                 IdentityResult result = userManager.CreateAsync
                 (user, "!Rep123").Result;
