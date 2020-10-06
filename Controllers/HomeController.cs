@@ -17,14 +17,15 @@ namespace Repairshop.Controllers
             this.db = db;
         }
 
-        public ActionResult Index(int Id)
+        public ActionResult Index(/*int Id*/)
         {
-            var model = db.GetOrderById(Id);
+            /*var model = db.GetCustomerById(Id);
             if (model == null)
             {
-                return View("0");
+                return HttpNotFound();
             }
-            return View(model);
+            */
+            return View(/*model*/);
         }
 
         public ActionResult About()
@@ -42,9 +43,26 @@ namespace Repairshop.Controllers
         }
 
         [Authorize]
-        public ActionResult Edit(int Id)
+        [HttpGet]
+        public ActionResult Edit(/*int Id*/)
         {
-            var model = db.GetCustomerById(Id);
+            /*var model = db.GetCustomerById(Id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            */
+            return View(/*model*/);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
             return View(model);
         }
     }
