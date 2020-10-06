@@ -216,9 +216,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010050936218_added-roles.cs" />
-    <Compile Include="Migrations\202010050936218_added-roles.Designer.cs">
-      <DependentUpon>202010050936218_added-roles.cs</DependentUpon>
+    <Compile Include="Migrations\202010060829366_hell.cs" />
+    <Compile Include="Migrations\202010060829366_hell.Designer.cs">
+      <DependentUpon>202010060829366_hell.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -313,8 +313,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010050936218_added-roles.resx">
-      <DependentUpon>202010050936218_added-roles.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010060829366_hell.resx">
+      <DependentUpon>202010060829366_hell.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

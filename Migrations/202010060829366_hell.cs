@@ -3,7 +3,7 @@ namespace Repairshop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addedroles : DbMigration
+    public partial class hell : DbMigration
     {
         public override void Up()
         {

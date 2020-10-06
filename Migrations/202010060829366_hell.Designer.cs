@@ -7,13 +7,13 @@ namespace Repairshop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addedroles : IMigrationMetadata
+    public sealed partial class hell : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedroles));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(hell));
         
         string IMigrationMetadata.Id
         {
-            get { return "202010050936218_added-roles"; }
+            get { return "202010060829366_hell"; }
         }
         
         string IMigrationMetadata.Source

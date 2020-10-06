@@ -91,7 +91,7 @@ namespace Repairshop.Models
 
         [Required]
         [Display(Name = "Roles")]
-        public IEnumerable<IdentityRole> Roles { get; }
+        public string[] Rolelist { get; }
 
     }
 

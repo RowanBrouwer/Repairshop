@@ -146,10 +146,12 @@ namespace Repairshop.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        [HttpGet]
+        [ActionName("Register")]
+        public ActionResult GetRegister()
         {
-            var model = Roles.GetAllRoles();
-            return View(model);
+            var Rolelist = Roles.GetAllRoles();
+            return View(Rolelist);
         }
 
         //
