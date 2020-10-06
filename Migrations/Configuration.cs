@@ -42,11 +42,11 @@ namespace Repairshop.Migrations
                 user.Email = "user1@localhost";
                 user.FirstName = "Nancy";
                 user.LastName = "Davolio";
-                Customer customer = new Customer();
-                customer.user = user;
+                RepairGuy repairGuy = new RepairGuy();
+                repairGuy.user = user;
 
                 IdentityResult result = userManager.CreateAsync
-                (user, "password_goes_here").Result;
+                (user, "!Admin123").Result;
 
                 if (result.Succeeded)
                 {
