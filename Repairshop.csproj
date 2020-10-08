@@ -216,18 +216,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010061256405_test1.cs" />
-    <Compile Include="Migrations\202010061256405_test1.Designer.cs">
-      <DependentUpon>202010061256405_test1.cs</DependentUpon>
+    <Compile Include="Migrations\202010081142496_seed-data-test.cs" />
+    <Compile Include="Migrations\202010081142496_seed-data-test.Designer.cs">
+      <DependentUpon>202010081142496_seed-data-test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AmountParts.cs" />
+    <Compile Include="Models\AmountPartsInStorage.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\part.cs" />
+    <Compile Include="Models\PartsNeeded.cs" />
     <Compile Include="Models\RepairGuy.cs" />
     <Compile Include="Models\RepairOrder.cs" />
     <Compile Include="Models\RoleNames.cs" />
@@ -314,8 +315,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010061256405_test1.resx">
-      <DependentUpon>202010061256405_test1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010081142496_seed-data-test.resx">
+      <DependentUpon>202010081142496_seed-data-test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

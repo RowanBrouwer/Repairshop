@@ -3,16 +3,16 @@ namespace Repairshop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class test1 : DbMigration
+    public partial class seeddatatest : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.AmountParts",
+                "dbo.AmountPartsInStorages",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Amount = c.Int(nullable: false),
+                        AmountInStorage = c.Int(nullable: false),
                         part_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -27,7 +27,7 @@ namespace Repairshop.Migrations
                         Brand = c.String(),
                         Type = c.String(),
                         Name = c.String(),
-                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Price = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -106,6 +106,21 @@ namespace Repairshop.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.PartsNeededs",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        AmountNeeded = c.Int(nullable: false),
+                        NeededPart_Id = c.Int(),
+                        PartInStorage_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.parts", t => t.NeededPart_Id)
+                .ForeignKey("dbo.AmountPartsInStorages", t => t.PartInStorage_Id)
+                .Index(t => t.NeededPart_Id)
+                .Index(t => t.PartInStorage_Id);
+            
+            CreateTable(
                 "dbo.RepairGuys",
                 c => new
                     {
@@ -127,12 +142,15 @@ namespace Repairshop.Migrations
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         customer_Id = c.Int(),
+                        parts_Id = c.Int(),
                         repairGuy_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Customers", t => t.customer_Id)
+                .ForeignKey("dbo.PartsNeededs", t => t.parts_Id)
                 .ForeignKey("dbo.RepairGuys", t => t.repairGuy_Id)
                 .Index(t => t.customer_Id)
+                .Index(t => t.parts_Id)
                 .Index(t => t.repairGuy_Id);
             
             CreateTable(
@@ -151,34 +169,41 @@ namespace Repairshop.Migrations
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.RepairOrders", "repairGuy_Id", "dbo.RepairGuys");
+            DropForeignKey("dbo.RepairOrders", "parts_Id", "dbo.PartsNeededs");
             DropForeignKey("dbo.RepairOrders", "customer_Id", "dbo.Customers");
             DropForeignKey("dbo.RepairGuys", "user_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.PartsNeededs", "PartInStorage_Id", "dbo.AmountPartsInStorages");
+            DropForeignKey("dbo.PartsNeededs", "NeededPart_Id", "dbo.parts");
             DropForeignKey("dbo.Customers", "user_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AmountParts", "part_Id", "dbo.parts");
+            DropForeignKey("dbo.AmountPartsInStorages", "part_Id", "dbo.parts");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.RepairOrders", new[] { "repairGuy_Id" });
+            DropIndex("dbo.RepairOrders", new[] { "parts_Id" });
             DropIndex("dbo.RepairOrders", new[] { "customer_Id" });
             DropIndex("dbo.RepairGuys", new[] { "user_Id" });
+            DropIndex("dbo.PartsNeededs", new[] { "PartInStorage_Id" });
+            DropIndex("dbo.PartsNeededs", new[] { "NeededPart_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Customers", new[] { "user_Id" });
-            DropIndex("dbo.AmountParts", new[] { "part_Id" });
+            DropIndex("dbo.AmountPartsInStorages", new[] { "part_Id" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.RepairOrders");
             DropTable("dbo.RepairGuys");
+            DropTable("dbo.PartsNeededs");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Customers");
             DropTable("dbo.parts");
-            DropTable("dbo.AmountParts");
+            DropTable("dbo.AmountPartsInStorages");
         }
     }
 }

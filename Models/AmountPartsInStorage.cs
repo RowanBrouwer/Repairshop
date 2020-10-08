@@ -5,10 +5,10 @@ using System.Web;
 
 namespace Repairshop.Models
 {
-    public class AmountParts
+    public class AmountPartsInStorage
     {
         public int Id { get; set; }
         public part part { get; set; }
-        public int Amount { get; set; }
+        public int AmountInStorage { get; set; }
     }
 }
