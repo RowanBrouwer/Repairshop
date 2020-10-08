@@ -13,7 +13,7 @@ namespace Repairshop.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202010081142496_seed-data-test"; }
+            get { return "202010081342533_seed-data-test"; }
         }
         
         string IMigrationMetadata.Source

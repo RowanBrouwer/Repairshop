@@ -41,121 +41,233 @@ namespace Repairshop.Migrations
 
             if (userManager.FindByEmail("Admin1@localhost") == null)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = "Admin1";
-                user.Email = "Admin1@localhost";
-                user.FirstName = "Nancy";
-                user.LastName = "Davolio";
-                RepairGuy repairGuy = new RepairGuy();
-                repairGuy.user = user;
-                context.repairGuys.Add(repairGuy);
+                IdentityResult result = userManager.CreateAsync(
+                    new ApplicationUser
+                    {
+                        UserName = "Admin1@localhost",
+                        Email = "Admin1@localhost",
+                        FirstName = "Nancy",
+                        LastName = "Davolio"
+                    }, "!Admin111").Result;
 
-                IdentityResult result = userManager.CreateAsync
-                (user, "!Admin111").Result;
+
+
+                context.repairGuys.Add(
+                    new RepairGuy
+                    {
+                        user = userManager.FindByEmail("Admin1@localhost"),
+                    });
+
+
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Admin");
+                    userManager.AddToRole(userManager.FindByEmail("Admin1@localhost").Id, "Repairguy");
                 }
             }
+
             if (userManager.FindByEmail("Admin2@localhost") == null)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = "Admin2";
-                user.Email = "Admin2@localhost";
-                user.FirstName = "Fancy";
-                user.LastName = "Tavolio";
-                RepairGuy repairGuy = new RepairGuy();
-                repairGuy.user = user;
-                context.repairGuys.Add(repairGuy);
+                IdentityResult result = userManager.CreateAsync(
+                    new ApplicationUser
+                    {
+                        UserName = "Admin2@localhost",
+                        Email = "Admin2@localhost",
+                        FirstName = "Fancy",
+                        LastName = "Tavolio"
+                    }, "!Admin222").Result;
 
-                IdentityResult result = userManager.CreateAsync
-                (user, "!Admin222").Result;
+
+
+                context.repairGuys.Add(
+                    new RepairGuy
+                    {
+                        user = userManager.FindByEmail("Admin2@localhost"),
+                    });
+
+
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Admin");
+                    userManager.AddToRole(userManager.FindByEmail("Admin2@localhost").Id, "Repairguy");
                 }
             }
 
             if (userManager.FindByEmail("cus1@localhost") == null)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = "Cus1";
-                user.Email = "cus1@localhost";
-                user.FirstName = "Bob";
-                user.LastName = "Builder";
-                Customer customer = new Customer();
-                customer.user = user;
-                context.customers.Add(customer);
+                IdentityResult result = userManager.CreateAsync(
+                    new ApplicationUser
+                    {
+                        UserName = "cus1@localhost",
+                        Email = "cus1@localhost",
+                        FirstName = "Bob",
+                        LastName = "Builder"
+                    }, "!Cus111").Result;
 
-                IdentityResult result = userManager.CreateAsync
-                (user, "!Cus111").Result;
+
+
+                context.customers.Add(
+                    new Customer
+                    {
+                        user = userManager.FindByEmail("cus1@localhost"),
+                    });
+
+
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Customer");
+                    userManager.AddToRole(userManager.FindByEmail("cus1@localhost").Id, "Customer");
                 }
             }
 
             if (userManager.FindByEmail("cus2@localhost") == null)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = "Cus2";
-                user.Email = "cus2@localhost";
-                user.FirstName = "Tob";
-                user.LastName = "Tuilder";
-                Customer customer = new Customer();
-                customer.user = user;
-                context.customers.Add(customer);
+                IdentityResult result = userManager.CreateAsync(
+                    new ApplicationUser
+                    {
+                        UserName = "cus2@localhost",
+                        Email = "cus2@localhost",
+                        FirstName = "tob",
+                        LastName = "tuilder"
+                    }, "!Cus222").Result;
 
-                IdentityResult result = userManager.CreateAsync
-                (user, "!Cus222").Result;
+
+
+                context.customers.Add(
+                    new Customer
+                    {
+                        user = userManager.FindByEmail("cus2@localhost"),
+                    });
+
+
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Customer");
+                    userManager.AddToRole(userManager.FindByEmail("cus2@localhost").Id, "Customer");
                 }
             }
 
             if (userManager.FindByEmail("Rep1@localhost") == null)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = "Rep1";
-                user.Email = "Rep1@localhost";
-                user.FirstName = "Rowan";
-                user.LastName = "Brouwer";
-                RepairGuy repairGuy = new RepairGuy();
-                repairGuy.user = user;
-                context.repairGuys.Add(repairGuy);
+                IdentityResult result = userManager.CreateAsync(
+                    new ApplicationUser
+                    {
+                        UserName = "Rep1@localhost",
+                        Email = "Rep1@localhost",
+                        FirstName = "Rowan",
+                        LastName = "Brouwer"
+                    }, "!Rep111").Result;
 
-                IdentityResult result = userManager.CreateAsync
-                (user, "!Rep111").Result;
+
+
+                context.repairGuys.Add(
+                    new RepairGuy
+                    {
+                        user = userManager.FindByEmail("Rep1@localhost"),
+                    });
+
+
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Repairguy");
+                    userManager.AddToRole(userManager.FindByEmail("Rep1@localhost").Id, "Repairguy");
                 }
             }
 
             if (userManager.FindByEmail("Rep2@localhost") == null)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = "Rep2";
-                user.Email = "Rep2@localhost";
-                user.FirstName = "Luna";
-                user.LastName = "Herder";
-                RepairGuy repairGuy = new RepairGuy();
-                repairGuy.user = user;
-                context.repairGuys.Add(repairGuy);
+                IdentityResult result = userManager.CreateAsync(
+                    new ApplicationUser
+                    {
+                        UserName = "Rep2@localhost",
+                        Email = "Rep2@localhost",
+                        FirstName = "Luna",
+                        LastName = "Herder"
+                    }, "!Rep222").Result;
 
-                IdentityResult result = userManager.CreateAsync
-                (user, "!Rep222").Result;
+
+
+                context.repairGuys.Add(
+                    new RepairGuy
+                    {
+                        user = userManager.FindByEmail("Rep2@localhost"),
+                    });
+
+
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, "Repairguy");
+                    userManager.AddToRole(userManager.FindByEmail("Rep2@localhost").Id, "Repairguy");
                 }
+            }
+
+
+            if (context.parts.Count() < 1)
+            {
+                IList<part> parts = new List<part>();
+                parts.Add(new part() { Brand = "Intel", Name = "10900k", Type = "CPU", Price = 799.99 });
+                parts.Add(new part() { Brand = "AMD", Name = "Ryzen 7 3700x", Type = "CPU", Price = 349.99 });
+                parts.Add(new part() { Brand = "AMD", Name = "5700XT", Type = "GPU", Price = 399.99 });
+                parts.Add(new part() { Brand = "Nvidia", Name = "RTX 3080", Type = "GPU", Price = 399.99 });
+                foreach (part part in parts)
+                {
+                    context.parts.Add(part);
+                }
+                base.Seed(context);
+            }
+            if (context.amountParts.Count() < 1)
+            {
+                IList<AmountPartsInStorage> amountParts = new List<AmountPartsInStorage>();
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 4, part = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel") });
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 6, part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD") });
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 7, part = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD") });
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 2, part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080" && p.Brand == "Nvidia") });
+                context.amountParts.AddRange(amountParts);
+                foreach (AmountPartsInStorage amount in amountParts)
+                {
+                    context.amountParts.Add(amount);
+                }
+                base.Seed(context);
+            }
+            if (context.repairOrders.Count() < 1)
+            {
+                IList<RepairOrder> orders = new List<RepairOrder>();
+                orders.Add(new RepairOrder()
+                {
+                    customer = context.customers.FirstOrDefault(p => p.user.Email == "cus2@localhost"),
+                    repairGuy = context.repairGuys.FirstOrDefault(p => p.user.Email == "Rep2@localhost"),
+                    status = Status.AwaitingParts,
+                    Description = "waiting for CPU",
+                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1, NeededPart = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD"), PartInStorage = context.amountParts.FirstOrDefault(p => p.part.Name == "Ryzen 7 3700x" && p.part.Brand == "AMD") }),
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Today
+
+                });
+                orders.Add(new RepairOrder()
+                {
+                    customer = context.customers.FirstOrDefault(p => p.user.Email == "cus1@localhost"),
+                    repairGuy = context.repairGuys.FirstOrDefault(p => p.user.Email == "Rep2@localhost"),
+                    status = Status.AwaitingParts,
+                    Description = "waiting for GPU",
+                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1, NeededPart = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD"), PartInStorage = context.amountParts.FirstOrDefault(p => p.part.Name == "5700XT" && p.part.Brand == "AMD") }),
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Today
+                });
+                orders.Add(new RepairOrder()
+                {
+                    customer = context.customers.FirstOrDefault(p => p.user.Email == "cus1@localhost"),
+                    repairGuy = context.repairGuys.FirstOrDefault(p => p.user.Email == "Rep1@localhost"),
+                    status = Status.AwaitingParts,
+                    Description = "waiting for CPU",
+                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1, NeededPart = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel"), PartInStorage = context.amountParts.FirstOrDefault(p => p.part.Name == "10900k" && p.part.Brand == "Intel") }),
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Today
+                });
+                foreach (RepairOrder order in orders)
+                {
+                    context.repairOrders.Add(order);
+                }
+                base.Seed(context);
             }
         }
     }

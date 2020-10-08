@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
 using Repairshop.Models;
 using Repairshop.Services;
 
@@ -17,15 +20,9 @@ namespace Repairshop.Controllers
             this.db = db;
         }
 
-        public ActionResult Index(/*int Id*/)
+        public ActionResult Index()
         {
-            /*var model = db.GetCustomerById(Id);
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            */
-            return View(/*model*/);
+            return View();
         }
 
         public ActionResult About()
@@ -44,26 +41,20 @@ namespace Repairshop.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult Edit(/*int Id*/)
+        public ActionResult Edit()
         {
-            /*var model = db.GetCustomerById(Id);
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            */
-            return View(/*model*/);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-
-            }
+            var model = db.GetUserByName(User.Identity.Name);
             return View(model);
         }
+
+        //[HttpPost]
+        //public ActionResult Edit()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //    }
+        //    return View();
+        //}
     }
 }
