@@ -24,34 +24,34 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(m => m.user.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.user.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.user.LastName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.StreetName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(m => m.user.StreetName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(m => m.StreetName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.StreetName, "", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.user.StreetName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.user.StreetName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(m => m.user.City, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.user.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.user.City, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(m => m.user.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(m => m.PostCode, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.PostCode, "", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.user.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.user.PostCode, "", new { @class = "text-danger" })
         </div>
     </div>
 
