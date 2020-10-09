@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -45,10 +46,9 @@ namespace Repairshop.Controllers
         [HttpGet]
         public ActionResult Edit()
         {
-            var model = db.GetUserByName(User.Identity.Name);
             EditViewModel editViewModel = new EditViewModel
             {
-                user = model
+                user = db.GetUserByName(User.Identity.Name)
             };
 
             return View(editViewModel);
@@ -68,11 +68,8 @@ namespace Repairshop.Controllers
                     var userManager = new UserManager<ApplicationUser>(userStore);
 
                     var model = db.GetUserByName(User.Identity.Name);
-                    model.FirstName = editmodel.user.FirstName;
-                    model.LastName = editmodel.user.LastName;
-                    model.City = editmodel.user.City;
-                    model.StreetName = editmodel.user.StreetName;
-                    model.PostCode = editmodel.user.PostCode;
+                    model = editmodel.user;
+                    context.Users.AddOrUpdate(model);
                     context.SaveChanges();
                 }
             }

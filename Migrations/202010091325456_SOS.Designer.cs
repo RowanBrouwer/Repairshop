@@ -7,13 +7,13 @@ namespace Repairshop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class seeding : IMigrationMetadata
+    public sealed partial class SOS : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(seeding));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SOS));
         
         string IMigrationMetadata.Id
         {
-            get { return "202010090802270_seeding"; }
+            get { return "202010091325456_SOS"; }
         }
         
         string IMigrationMetadata.Source

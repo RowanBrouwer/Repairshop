@@ -216,15 +216,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010090802270_seeding.cs" />
-    <Compile Include="Migrations\202010090802270_seeding.Designer.cs">
-      <DependentUpon>202010090802270_seeding.cs</DependentUpon>
+    <Compile Include="Migrations\202010091325456_SOS.cs" />
+    <Compile Include="Migrations\202010091325456_SOS.Designer.cs">
+      <DependentUpon>202010091325456_SOS.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AmountPartsInStorage.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\part.cs" />
@@ -297,6 +298,8 @@
     <Content Include="Views\RepairOrders\Index.cshtml" />
     <Content Include="Views\RepairOrders\Details.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\RepairOrders\DetailsEdit.cshtml" />
+    <Content Include="Views\RepairOrders\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -315,8 +318,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010090802270_seeding.resx">
-      <DependentUpon>202010090802270_seeding.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010091325456_SOS.resx">
+      <DependentUpon>202010091325456_SOS.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

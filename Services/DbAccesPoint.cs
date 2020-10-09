@@ -23,6 +23,7 @@ namespace Repairshop.Services
         IEnumerable<RepairOrder> GetRepairOrdersByRepairGuyId(int Id);
         ApplicationUser GetUser(string user);
         ApplicationUser GetUserByName(string username);
+        IEnumerable<RepairOrder> GetRepairOrdersByUserName(string username);
     }
 
     public class DbCommands : DbAccesPoint
@@ -58,6 +59,11 @@ namespace Repairshop.Services
         public IEnumerable<RepairOrder> GetRepairOrdersByRepairGuyId(int Id)
         {
             return db.repairOrders.Where(r => r.repairGuy.Id == Id);
+        }
+
+        public IEnumerable<RepairOrder> GetRepairOrdersByUserName(string username)
+        {
+            return db.repairOrders.Where(c => c.customer.user.UserName == username);
         }
 
         public ApplicationUser GetUser(string user)
