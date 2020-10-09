@@ -6,8 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Repairshop.Models;
 using Repairshop.Services;
+using Repairshop.ViewModels;
 
 namespace Repairshop.Controllers
 {
@@ -44,17 +46,37 @@ namespace Repairshop.Controllers
         public ActionResult Edit()
         {
             var model = db.GetUserByName(User.Identity.Name);
-            return View(model);
+            EditViewModel editViewModel = new EditViewModel
+            {
+                user = model
+            };
+
+            return View(editViewModel);
         }
 
-        //[HttpPost]
-        //public ActionResult Edit()
-        //{
-        //    if (ModelState.IsValid)
-        //    {
+        [HttpPost]
+        public ActionResult Edit(EditViewModel editmodel)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                if (ModelState.IsValid)
+                {
+                    var roleStore = new RoleStore<IdentityRole>(context);
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-        //    }
-        //    return View();
-        //}
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+
+                    var model = db.GetUserByName(User.Identity.Name);
+                    model.FirstName = editmodel.user.FirstName;
+                    model.LastName = editmodel.user.LastName;
+                    model.City = editmodel.user.City;
+                    model.StreetName = editmodel.user.StreetName;
+                    model.PostCode = editmodel.user.PostCode;
+                    context.SaveChanges();
+                }
+            }
+            return View(editmodel);
+        }
     }
 }
