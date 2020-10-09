@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -55,6 +57,7 @@ namespace Repairshop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(EditViewModel editmodel)
         {
             using (var context = new ApplicationDbContext())
@@ -68,12 +71,12 @@ namespace Repairshop.Controllers
                     var userManager = new UserManager<ApplicationUser>(userStore);
 
                     var model = db.GetUserByName(User.Identity.Name);
-                    model.FirstName = editmodel.user.FirstName;
-                    model.LastName = editmodel.user.LastName;
-                    model.City = editmodel.user.City;
-                    model.StreetName = editmodel.user.StreetName;
-                    model.PostCode = editmodel.user.PostCode;
+                    model = editmodel.user;
+
+                    context.Users.AddOrUpdate(model);
                     context.SaveChanges();
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(editmodel);
