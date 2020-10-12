@@ -238,7 +238,7 @@ namespace Repairshop.Migrations
                 {
                     context.parts.Add(part);
                 }
-                base.Seed(context);
+                context.SaveChanges();
             }
 
             if (context.amountParts.Count() < 1)
@@ -247,29 +247,29 @@ namespace Repairshop.Migrations
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 4,
-                    Part = context.parts.FirstOrDefault(p => p.Name == "10900k") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel") 
                 });
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 6,
-                    Part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD") 
                 });
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 7,
-                    Part = context.parts.FirstOrDefault(p => p.Name == "5700XT") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD") 
                 });
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 2,
-                    Part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080" && p.Brand == "Nvidia") 
                 });
 
                 foreach (AmountPartsInStorage amount in amountParts)
                 {
                     context.amountParts.Add(amount);
                 }
-                base.Seed(context);
+                context.SaveChanges();
             }
 
             if (context.repairOrders.Count() < 1)
@@ -286,8 +286,8 @@ namespace Repairshop.Migrations
                     parts = context.partsNeeded.Add(new PartsNeeded()
                     {
                         AmountNeeded = 1,
-                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x"),
-                        inStorage = context.amountParts.FirstOrDefault(r => r.Part == context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x"))
+                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD"),
+                        inStorage = context.amountParts.FirstOrDefault(r => r.Part.Name == "Ryzen 7 3700x" && r.Part.Brand == "AMD")
                     }),
 
                     StartDate = DateTime.Now,
@@ -303,8 +303,8 @@ namespace Repairshop.Migrations
                     Description = "waiting for GPU",
 
                     parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1,
-                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "5700XT"),
-                        inStorage = context.amountParts.FirstOrDefault(r => r.Part == context.parts.FirstOrDefault(p => p.Name == "5700XT"))
+                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD"),
+                        inStorage = context.amountParts.FirstOrDefault(r => r.Part.Name == "5700XT" && r.Part.Brand == "AMD")
                     }),
 
                     StartDate = DateTime.Now,
@@ -319,8 +319,8 @@ namespace Repairshop.Migrations
                     Description = "waiting for CPU",
 
                     parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1,
-                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "10900k"),
-                        inStorage = context.amountParts.FirstOrDefault(r => r.Part == context.parts.FirstOrDefault(p => p.Name == "10900k"))
+                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel"),
+                        inStorage = context.amountParts.FirstOrDefault(r => r.Part.Name == "10900k" && r.Part.Brand == "Intel")
                     }),
 
                     StartDate = DateTime.Now,
