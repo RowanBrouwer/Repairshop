@@ -215,20 +215,30 @@ namespace Repairshop.Migrations
                 }
                 base.Seed(context);
             }
+
             if (context.amountParts.Count() < 1)
             {
                 IList<AmountPartsInStorage> amountParts = new List<AmountPartsInStorage>();
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 4, part = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel") });
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 6, part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD") });
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 7, part = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD") });
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 2, part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080" && p.Brand == "Nvidia") });
-                context.amountParts.AddRange(amountParts);
+
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 4,
+                    part = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel") });
+
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 6,
+                    part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD") });
+
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 7,
+                    part = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD") });
+
+                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 2,
+                    part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080" && p.Brand == "Nvidia") });
+
                 foreach (AmountPartsInStorage amount in amountParts)
                 {
                     context.amountParts.Add(amount);
                 }
                 base.Seed(context);
             }
+
             if (context.repairOrders.Count() < 1)
             {
                 IList<RepairOrder> orders = new List<RepairOrder>();
@@ -236,32 +246,52 @@ namespace Repairshop.Migrations
                 {
                     customer = context.customers.FirstOrDefault(p => p.user.Email == "cus2@localhost"),
                     repairGuy = context.repairGuys.FirstOrDefault(p => p.user.Email == "Rep2@localhost"),
+
                     status = Status.AwaitingParts,
                     Description = "waiting for CPU",
-                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1, NeededPart = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD"), PartInStorage = context.amountParts.FirstOrDefault(p => p.part.Name == "Ryzen 7 3700x" && p.part.Brand == "AMD") }),
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Today
 
-                });
+                    parts = context.partsNeeded.Add(new PartsNeeded()
+                    {
+                        AmountNeeded = 1,
+                        NeededPart = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD"),
+                        PartInStorage = context.amountParts.FirstOrDefault(r => r.part == context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD"))
+                    }),
+
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(7)
+
+                }) ;
                 orders.Add(new RepairOrder()
                 {
                     customer = context.customers.FirstOrDefault(p => p.user.Email == "cus1@localhost"),
                     repairGuy = context.repairGuys.FirstOrDefault(p => p.user.Email == "Rep2@localhost"),
+
                     status = Status.AwaitingParts,
                     Description = "waiting for GPU",
-                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1, NeededPart = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD"), PartInStorage = context.amountParts.FirstOrDefault(p => p.part.Name == "5700XT" && p.part.Brand == "AMD") }),
+
+                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1,
+                        NeededPart = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD"),
+                        PartInStorage = context.amountParts.FirstOrDefault(r => r.part == context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD"))
+                    }),
+
                     StartDate = DateTime.Now,
-                    EndDate = DateTime.Today
+                    EndDate = DateTime.Today.AddDays(5)
                 });
                 orders.Add(new RepairOrder()
                 {
                     customer = context.customers.FirstOrDefault(p => p.user.Email == "cus1@localhost"),
                     repairGuy = context.repairGuys.FirstOrDefault(p => p.user.Email == "Rep1@localhost"),
+
                     status = Status.AwaitingParts,
                     Description = "waiting for CPU",
-                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1, NeededPart = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel"), PartInStorage = context.amountParts.FirstOrDefault(p => p.part.Name == "10900k" && p.part.Brand == "Intel") }),
+
+                    parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1,
+                        NeededPart = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel"),
+                        PartInStorage = context.amountParts.FirstOrDefault(r => r.part == context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel"))
+                    }),
+
                     StartDate = DateTime.Now,
-                    EndDate = DateTime.Today
+                    EndDate = DateTime.Today.AddDays(4)
                 });
                 foreach (RepairOrder order in orders)
                 {

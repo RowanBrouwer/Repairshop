@@ -103,6 +103,9 @@ namespace Repairshop.Controllers
                     order.repairGuy = CreateView.order.repairGuy;
                     order.status = Status.Awaiting;
                     order.StartDate = DateTime.Now;
+                    order.EndDate = order.StartDate.AddDays(7);
+                    order.parts = CreateView.order.parts;
+                    order.Description = CreateView.order.Description;
                     context.repairOrders.Add(order);
                     context.SaveChanges();
                     return RedirectToAction("Index");

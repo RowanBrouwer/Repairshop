@@ -24,13 +24,26 @@ namespace Repairshop.Services
         ApplicationUser GetUser(string user);
         ApplicationUser GetUserByName(string username);
         IEnumerable<RepairOrder> GetRepairOrdersByUserName(string username);
+        IEnumerable<AmountPartsInStorage> GetAllPartsInStorage();
+        AmountPartsInStorage getAmountById(int Id);
+        part GetPartInfoByAmountId(int id);
     }
 
     public class DbCommands : DbAccesPoint
     {
 
         public ApplicationDbContext db = new ApplicationDbContext();
-        
+
+        public IEnumerable<AmountPartsInStorage> GetAllPartsInStorage()
+        {
+            return db.amountParts.OrderBy(r => r.AmountInStorage);
+        }
+
+        public AmountPartsInStorage getAmountById(int Id)
+        {
+            return db.amountParts.FirstOrDefault(r => r.Id == Id);
+        }
+
         public Customer GetCustomerById(int Id)
         {
             return db.customers.FirstOrDefault(r => r.Id == Id);
@@ -44,6 +57,11 @@ namespace Repairshop.Services
         public RepairOrder GetOrderById(int Id)
         {
             return db.repairOrders.FirstOrDefault(r => r.Id == Id);
+        }
+
+        public part GetPartInfoByAmountId(int id)
+        {
+            return db.parts.FirstOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<RepairOrder> GetRepairOrders()

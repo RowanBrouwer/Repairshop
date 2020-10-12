@@ -39,7 +39,6 @@ namespace Repairshop.Models
                 base.OnModelCreating(modelBuilder);
                 modelBuilder.Entity<IdentityUser>().ToTable("Users");
                 modelBuilder.Entity<ApplicationUser>().ToTable("Users");
-
             }
         }
 
