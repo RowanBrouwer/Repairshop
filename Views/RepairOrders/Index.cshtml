@@ -49,13 +49,13 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.parts)
+                @Html.DisplayFor(modelItem => item.parts.AmountNeeded)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.repairGuy)
+                @Html.DisplayFor(modelItem => item.repairGuy.user.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.customer)
+                @Html.DisplayFor(modelItem => item.customer.user.LastName)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

@@ -36,7 +36,7 @@ namespace Repairshop.Services
 
         public IEnumerable<AmountPartsInStorage> GetAllPartsInStorage()
         {
-            return db.amountParts.OrderBy(r => r.AmountInStorage);
+            return db.amountParts.OrderBy(a => a.AmountInStorage).Include("part");
         }
 
         public AmountPartsInStorage getAmountById(int Id)
@@ -66,7 +66,7 @@ namespace Repairshop.Services
 
         public IEnumerable<RepairOrder> GetRepairOrders()
         {
-            return db.repairOrders.OrderBy(r => r.status);
+            return db.repairOrders.OrderBy(r => r.status).Include("Customer.User").Include("RepairGuy.User").Include("parts");
         }
 
         public IEnumerable<RepairOrder> GetRepairOrdersByCustomerId(int Id)

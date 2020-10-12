@@ -43,11 +43,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.parts)
+            @Html.DisplayNameFor(model => model.parts.PartNeeded)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.parts)
+            @Html.DisplayFor(model => model.parts.PartNeeded)
         </dd>
 
         <dt>
@@ -55,7 +55,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.repairGuy)
+            @Html.DisplayFor(model => model.repairGuy.user.LastName)
         </dd>
 
         <dt>
@@ -63,7 +63,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.customer)
+            @Html.DisplayFor(model => model.customer.user.LastName)
         </dd>
 
     </dl>
