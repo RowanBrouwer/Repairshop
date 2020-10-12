@@ -10,6 +10,5 @@ namespace Repairshop.ViewModels
     public class EditViewModel
     {
         public ApplicationUser user { get; set; }
-
     }
 }
