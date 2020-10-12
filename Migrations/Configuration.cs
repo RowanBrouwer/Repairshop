@@ -205,10 +205,35 @@ namespace Repairshop.Migrations
             if (context.parts.Count() < 1)
             {
                 IList<part> parts = new List<part>();
-                parts.Add(new part() { Brand = "Intel", Name = "10900k", Type = "CPU", Price = 799.99 });
-                parts.Add(new part() { Brand = "AMD", Name = "Ryzen 7 3700x", Type = "CPU", Price = 349.99 });
-                parts.Add(new part() { Brand = "AMD", Name = "5700XT", Type = "GPU", Price = 399.99 });
-                parts.Add(new part() { Brand = "Nvidia", Name = "RTX 3080", Type = "GPU", Price = 399.99 });
+
+                parts.Add(new part() { 
+                    Brand = "Intel",
+                    Name = "10900k",
+                    Type = "CPU",
+                    Price = 799.99 
+                });
+
+                parts.Add(new part() { 
+                    Brand = "AMD",
+                    Name = "Ryzen 7 3700x",
+                    Type = "CPU",
+                    Price = 349.99 
+                });
+
+                parts.Add(new part() { 
+                    Brand = "AMD",
+                    Name = "5700XT",
+                    Type = "GPU",
+                    Price = 399.99 
+                });
+
+                parts.Add(new part() { 
+                    Brand = "Nvidia",
+                    Name = "RTX 3080",
+                    Type = "GPU",
+                    Price = 399.99 
+                });
+
                 foreach (part part in parts)
                 {
                     context.parts.Add(part);
@@ -220,17 +245,25 @@ namespace Repairshop.Migrations
             {
                 IList<AmountPartsInStorage> amountParts = new List<AmountPartsInStorage>();
 
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 4,
-                    part = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel") });
+                amountParts.Add(new AmountPartsInStorage() { 
+                    AmountInStorage = 4,
+                    part = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel") 
+                });
 
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 6,
-                    part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD") });
+                amountParts.Add(new AmountPartsInStorage() { 
+                    AmountInStorage = 6,
+                    part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD") 
+                });
 
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 7,
-                    part = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD") });
+                amountParts.Add(new AmountPartsInStorage() { 
+                    AmountInStorage = 7,
+                    part = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD") 
+                });
 
-                amountParts.Add(new AmountPartsInStorage() { AmountInStorage = 2,
-                    part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080" && p.Brand == "Nvidia") });
+                amountParts.Add(new AmountPartsInStorage() { 
+                    AmountInStorage = 2,
+                    part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080" && p.Brand == "Nvidia") 
+                });
 
                 foreach (AmountPartsInStorage amount in amountParts)
                 {
