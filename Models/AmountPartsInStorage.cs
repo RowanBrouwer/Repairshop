@@ -11,7 +11,7 @@ namespace Repairshop.Models
     {
         [Key]
         public int Id { get; set; }
-        public part part { get; set; }
+        public part Part { get; set; }
         public int AmountInStorage { get; set; }
     }
 }

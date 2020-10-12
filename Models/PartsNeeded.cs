@@ -12,7 +12,7 @@ namespace Repairshop.Models
         [Key]
         public int Id { get; set; }
         public AmountPartsInStorage inStorage { get; set; }
-        public part NeededPart { get; set; }
+        public part PartNeeded { get; set; }
         public int AmountNeeded { get; set; }
     }
 }

@@ -6,19 +6,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.part.Brand)
+            @Html.DisplayNameFor(model => model.Part.Brand)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.part.Type)
+            @Html.DisplayNameFor(model => model.Part.Type)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.part.Name)
+            @Html.DisplayNameFor(model => model.Part.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AmountInStorage)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.part.Price)
+            @Html.DisplayNameFor(model => model.Part.Price)
         </th>
         <th></th>
     </tr>
@@ -26,19 +26,19 @@
 @foreach (var item in Model) {
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.part.Brand)
+        @Html.DisplayFor(modelItem => item.Part.Brand)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.part.Type)
+        @Html.DisplayFor(modelItem => item.Part.Type)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.part.Name)
+        @Html.DisplayFor(modelItem => item.Part.Name)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.AmountInStorage)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.part.Price)
+        @Html.DisplayFor(modelItem => item.Part.Price)
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

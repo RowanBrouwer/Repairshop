@@ -46,10 +46,10 @@ namespace Repairshop.Controllers
                 {
                     var part = db.getAmountById(editview.amountparts.Id);
                     part.AmountInStorage = editview.amountparts.AmountInStorage;
-                    part.part.Name = editview.amountparts.part.Name;
-                    part.part.Brand = editview.amountparts.part.Brand;
-                    part.part.Type = editview.amountparts.part.Type;
-                    part.part.Price = editview.amountparts.part.Price;
+                    part.Part.Name = editview.amountparts.Part.Name;
+                    part.Part.Brand = editview.amountparts.Part.Brand;
+                    part.Part.Type = editview.amountparts.Part.Type;
+                    part.Part.Price = editview.amountparts.Part.Price;
                     context.amountParts.AddOrUpdate(part);
                     context.SaveChanges();
                 }

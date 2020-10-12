@@ -247,22 +247,22 @@ namespace Repairshop.Migrations
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 4,
-                    part = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "10900k") 
                 });
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 6,
-                    part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x") 
                 });
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 7,
-                    part = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "5700XT") 
                 });
 
                 amountParts.Add(new AmountPartsInStorage() { 
                     AmountInStorage = 2,
-                    part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080" && p.Brand == "Nvidia") 
+                    Part = context.parts.FirstOrDefault(p => p.Name == "RTX 3080") 
                 });
 
                 foreach (AmountPartsInStorage amount in amountParts)
@@ -286,8 +286,8 @@ namespace Repairshop.Migrations
                     parts = context.partsNeeded.Add(new PartsNeeded()
                     {
                         AmountNeeded = 1,
-                        NeededPart = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD"),
-                        inStorage = context.amountParts.FirstOrDefault(r => r.part == context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x" && p.Brand == "AMD"))
+                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x"),
+                        inStorage = context.amountParts.FirstOrDefault(r => r.Part == context.parts.FirstOrDefault(p => p.Name == "Ryzen 7 3700x"))
                     }),
 
                     StartDate = DateTime.Now,
@@ -303,8 +303,8 @@ namespace Repairshop.Migrations
                     Description = "waiting for GPU",
 
                     parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1,
-                        NeededPart = context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD"),
-                        inStorage = context.amountParts.FirstOrDefault(r => r.part == context.parts.FirstOrDefault(p => p.Name == "5700XT" && p.Brand == "AMD"))
+                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "5700XT"),
+                        inStorage = context.amountParts.FirstOrDefault(r => r.Part == context.parts.FirstOrDefault(p => p.Name == "5700XT"))
                     }),
 
                     StartDate = DateTime.Now,
@@ -319,8 +319,8 @@ namespace Repairshop.Migrations
                     Description = "waiting for CPU",
 
                     parts = context.partsNeeded.Add(new PartsNeeded() { AmountNeeded = 1,
-                        NeededPart = context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel"),
-                        inStorage = context.amountParts.FirstOrDefault(r => r.part == context.parts.FirstOrDefault(p => p.Name == "10900k" && p.Brand == "Intel"))
+                        PartNeeded = context.parts.FirstOrDefault(p => p.Name == "10900k"),
+                        inStorage = context.amountParts.FirstOrDefault(r => r.Part == context.parts.FirstOrDefault(p => p.Name == "10900k"))
                     }),
 
                     StartDate = DateTime.Now,
