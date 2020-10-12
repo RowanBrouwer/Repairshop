@@ -12,6 +12,5 @@ namespace Repairshop.Models
         [Key]
         public int Id { get; set; }
         public ApplicationUser user { get; set; }
-        public IEnumerable<RepairOrder> RepairOrders { get; set; }
     }
 }

@@ -59,8 +59,8 @@ namespace Repairshop.Models
         public DbSet<Customer> customers { get; set; }
         public DbSet<RepairGuy> repairGuys { get; set; }
         public DbSet<part> parts { get; set; }
-        public DbSet<AmountPartsInStorage> amountParts { get; set; }
         public DbSet<RepairOrder> repairOrders { get; set; }
+        public DbSet<AmountPartsInStorage> amountParts { get; set; }
         public DbSet<PartsNeeded> partsNeeded { get; set; }
 
         public static ApplicationDbContext Create()
