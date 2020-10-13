@@ -56,7 +56,7 @@ namespace Repairshop.Services
 
         public RepairOrder GetOrderById(int Id)
         {
-            return db.repairOrders.FirstOrDefault(r => r.Id == Id);
+            return db.repairOrders.Where(r => r.Id == Id).Include("parts.PartNeeded").Include("Customer.User").Include("RepairGuy.User").FirstOrDefault();
         }
 
         public part GetPartInfoByAmountId(int id)
@@ -71,12 +71,12 @@ namespace Repairshop.Services
 
         public IEnumerable<RepairOrder> GetRepairOrdersByCustomerId(int Id)
         {
-            return db.repairOrders.Where(r => r.customer.Id == Id);
+            return db.repairOrders.Where(r => r.customer.Id == Id).Include("parts");
         }
 
         public IEnumerable<RepairOrder> GetRepairOrdersByRepairGuyId(int Id)
         {
-            return db.repairOrders.Where(r => r.repairGuy.Id == Id);
+            return db.repairOrders.Where(r => r.repairGuy.Id == Id).Include("parts");
         }
 
         public IEnumerable<RepairOrder> GetRepairOrdersByUserName(string username)

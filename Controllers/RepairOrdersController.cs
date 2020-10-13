@@ -43,7 +43,7 @@ namespace Repairshop.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Repairguy,Admin")]
+        [Authorize]
         public ActionResult Details(int Id)
         {
             var model = db.GetOrderById(Id);
@@ -51,37 +51,43 @@ namespace Repairshop.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Repairguy,Admin")]
         public ActionResult DetailsEdit(int Id)
-        {          
-            DetailsEditViewModel editview = new DetailsEditViewModel
+        {
+            if ((User.IsInRole("Admin") || User.IsInRole("Repairguy")))
             {
-                order = db.GetOrderById(Id)
-            };
-            return View(editview);
+                DetailsEditViewModel editview = new DetailsEditViewModel
+                {
+                    order = db.GetOrderById(Id)
+                };
+                return View(editview);
+            }
+            return RedirectToAction("Details");
         }
 
         [HttpPost]
-        [Authorize(Roles = "Repairguy, Admin")]
         public ActionResult DetailsEdit(DetailsEditViewModel editview)
         {
-            using (var context = new ApplicationDbContext())
+            if ((User.IsInRole("Admin") || User.IsInRole("Repairguy")))
             {
-                if (ModelState.IsValid)
+                using (var context = new ApplicationDbContext())
                 {
-                    var order = db.GetOrderById(editview.order.Id);
-                    order.customer = editview.order.customer;
-                    order.repairGuy = editview.order.repairGuy;
-                    order.StartDate = editview.order.StartDate;
-                    order.status = editview.order.status;
-                    order.EndDate = editview.order.EndDate;
-                    order.Description = editview.order.Description;
-                    context.repairOrders.AddOrUpdate(order);
-                    context.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (ModelState.IsValid)
+                    {
+                        var order = db.GetOrderById(editview.order.Id);
+                        order.customer = editview.order.customer;
+                        order.repairGuy = editview.order.repairGuy;
+                        order.StartDate = editview.order.StartDate;
+                        order.status = editview.order.status;
+                        order.EndDate = editview.order.EndDate;
+                        order.Description = editview.order.Description;
+                        context.repairOrders.AddOrUpdate(order);
+                        context.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    return View(editview);
                 }
             }
-            return View(editview);
+            return RedirectToAction("Details");
         }
         [HttpGet]
         [Authorize]

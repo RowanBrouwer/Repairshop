@@ -39,7 +39,15 @@
             @Html.ValidationMessageFor(model => model.order.EndDate, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.order.parts.PartNeeded.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.order.parts.PartNeeded.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.order.parts.PartNeeded.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(m => m.order.status, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">

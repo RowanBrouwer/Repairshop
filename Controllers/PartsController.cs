@@ -10,7 +10,6 @@ using System.Web.Mvc;
 
 namespace Repairshop.Controllers
 {
-    [Authorize(Roles = "Repairguy,Admin")]
     public class PartsController : Controller
     {
         DbAccesPoint db;
@@ -23,10 +22,15 @@ namespace Repairshop.Controllers
         // GET: Parts
         public ActionResult Index()
         {
-            var model = db.GetAllPartsInStorage();
-            return View(model);
+            if (User.IsInRole("Admin") || User.IsInRole("Repairguy"))
+            {
+                var model = db.GetAllPartsInStorage();
+                return View(model);
+            }
+            return Redirect("Home");
         }
 
+        [Authorize(Roles = "Repairguy,Admin")]
         [HttpGet]
         public ActionResult Edit(int Id)
         {
@@ -37,6 +41,7 @@ namespace Repairshop.Controllers
             return View(editview);
         }
 
+        [Authorize(Roles = "Repairguy,Admin")]
         [HttpPost]
         public ActionResult Edit(PartsEditViewModel editview)
         {
@@ -56,12 +61,13 @@ namespace Repairshop.Controllers
             }
             return View();
         }
-
-        public ActionResult Details()
+        [Authorize(Roles = "Repairguy,Admin")]
+        public ActionResult Details(int Id)
         {
-            return View();
+            var model = db.getAmountById(Id);
+            return View(model);
         }
-
+        [Authorize(Roles = "Repairguy,Admin")]
         public ActionResult Delete()
         {
             return View();

@@ -1,0 +1,52 @@
+﻿@model Repairshop.Models.AmountPartsInStorage
+
+<div>
+    <h4>AmountPartsInStorage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Part.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Part.Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Part.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Part.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Part.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Part.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Part.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Part.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountInStorage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmountInStorage)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
