@@ -235,11 +235,14 @@ $.extend( $.expr.pseudos || $.expr[ ":" ], {		// '|| $.expr[ ":" ]' here enables
 } );
 
 // Constructor for validator
-$.validator = function( options, form ) {
-	this.settings = $.extend( true, {}, $.validator.defaults, options );
-	this.currentForm = form;
-	this.init();
-};
+
+	$.validator = function (options, form) {
+		this.optional(form) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+		this.settings = $.extend(true, {}, $.validator.defaults, options);
+		this.currentForm = form;
+		this.init();
+	};
+
 
 // https://jqueryvalidation.org/jQuery.validator.format/
 $.validator.format = function( source, params ) {

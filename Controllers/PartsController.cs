@@ -4,9 +4,11 @@ using Repairshop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Repairshop.HelperClasses;
 
 namespace Repairshop.Controllers
 {
@@ -43,20 +45,26 @@ namespace Repairshop.Controllers
 
         [Authorize(Roles = "Repairguy,Admin")]
         [HttpPost]
-        public ActionResult Edit(PartsEditViewModel editview)
+        public ActionResult Edit(PartsEditViewModel viewModel, int Id)
         {
-            using (var context = new ApplicationDbContext())
+            if (viewModel != null)
             {
+                var clone = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+                clone.NumberFormat.NumberDecimalSeparator = ",";
+                clone.NumberFormat.NumberGroupSeparator = ".";
+                string s = viewModel.amountparts.Part.Price.ToString();
+                double d = double.Parse(s, clone);
+                viewModel.amountparts.Part.Price = d;
                 if (ModelState.IsValid)
                 {
-                    var part = db.getAmountById(editview.amountparts.Id);
-                    part.AmountInStorage = editview.amountparts.AmountInStorage;
-                    part.Part.Name = editview.amountparts.Part.Name;
-                    part.Part.Brand = editview.amountparts.Part.Brand;
-                    part.Part.Type = editview.amountparts.Part.Type;
-                    part.Part.Price = editview.amountparts.Part.Price;
-                    context.amountParts.AddOrUpdate(part);
-                    context.SaveChanges();
+                    bool accessed = false;
+                    string switchcase = "Parts";
+                    DbAccesPoint idb = db;
+                    if (ModelState.IsValid)
+                    {
+                        SaveClass.SaveChoice(viewModel, accessed, Id, switchcase, idb);
+                        return RedirectToAction("Index");
+                    }
                 }
             }
             return View();
@@ -73,5 +81,37 @@ namespace Repairshop.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(PartsEditViewModel viewModel)
+        {
+            if (viewModel != null)
+            {
+                var clone = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+                clone.NumberFormat.NumberDecimalSeparator = ",";
+                clone.NumberFormat.NumberGroupSeparator = ".";
+                string s = viewModel.amountparts.Part.Price.ToString();
+                double d = double.Parse(s, clone);
+                viewModel.amountparts.Part.Price = d;
+
+                if (ModelState.IsValid)
+                {
+                    bool accessed = true;
+                    int Id = 0;
+                    string switchcase = "Parts";
+                    DbAccesPoint idb = db;
+                    if (ModelState.IsValid)
+                    {
+                        SaveClass.SaveChoice(viewModel, accessed, Id, switchcase, idb);
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            return View();
+        }
     }
 }

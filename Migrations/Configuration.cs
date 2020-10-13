@@ -217,21 +217,21 @@ namespace Repairshop.Migrations
                     Brand = "AMD",
                     Name = "Ryzen 7 3700x",
                     Type = "CPU",
-                    Price = 349.99 
+                    Price = 349.80
                 });
 
                 parts.Add(new part() { 
                     Brand = "AMD",
                     Name = "5700XT",
                     Type = "GPU",
-                    Price = 399.99 
+                    Price = 399.79 
                 });
 
                 parts.Add(new part() { 
                     Brand = "Nvidia",
                     Name = "RTX 3080",
                     Type = "GPU",
-                    Price = 399.99 
+                    Price = 399.45 
                 });
 
                 foreach (part part in parts)

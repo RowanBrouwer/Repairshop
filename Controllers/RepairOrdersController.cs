@@ -1,4 +1,5 @@
-﻿using Repairshop.Models;
+﻿using Repairshop.HelperClasses;
+using Repairshop.Models;
 using Repairshop.Services;
 using Repairshop.ViewModels;
 using System;
@@ -7,6 +8,7 @@ using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Odbc;
+using System.Deployment.Internal;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -59,35 +61,31 @@ namespace Repairshop.Controllers
                 {
                     order = db.GetOrderById(Id)
                 };
-                return View(editview);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Details");
+            return View();
         }
 
         [HttpPost]
-        public ActionResult DetailsEdit(DetailsEditViewModel editview)
+        public ActionResult DetailsEdit(DetailsEditViewModel viewmodel, int Id)
         {
             if ((User.IsInRole("Admin") || User.IsInRole("Repairguy")))
             {
-                using (var context = new ApplicationDbContext())
+                if (viewmodel != null)
                 {
                     if (ModelState.IsValid)
                     {
-                        var order = db.GetOrderById(editview.order.Id);
-                        order.customer = editview.order.customer;
-                        order.repairGuy = editview.order.repairGuy;
-                        order.StartDate = editview.order.StartDate;
-                        order.status = editview.order.status;
-                        order.EndDate = editview.order.EndDate;
-                        order.Description = editview.order.Description;
-                        context.repairOrders.AddOrUpdate(order);
-                        context.SaveChanges();
+                        bool admin = true;
+                        var user = User;
+                        bool accessed = false;
+                        string switchcase = "Parts";
+                        DbAccesPoint idb = db;
+                        SaveClass.SaveChoice(viewmodel, accessed, Id, switchcase, idb, user, admin);
                         return RedirectToAction("Index");
                     }
-                    return View(editview);
                 }
             }
-            return RedirectToAction("Details");
+            return View();
         }
         [HttpGet]
         [Authorize]
@@ -98,26 +96,36 @@ namespace Repairshop.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Customer, Admin")]
-        public ActionResult CreateOrder(DetailsEditViewModel CreateView)
+        public ActionResult CreateOrder(DetailsEditViewModel viewmodel)
         {
-            using (var context = new ApplicationDbContext())
+
+            if (viewmodel != null)
             {
                 if (ModelState.IsValid)
                 {
-                    var order = new RepairOrder();
-                    order.customer = CreateView.order.customer;
-                    order.repairGuy = CreateView.order.repairGuy;
-                    order.status = Status.Awaiting;
-                    order.StartDate = DateTime.Now;
-                    order.EndDate = order.StartDate.AddDays(7);
-                    order.parts = CreateView.order.parts;
-                    order.Description = CreateView.order.Description;
-                    context.repairOrders.Add(order);
-                    context.SaveChanges();
+                    bool admin = false;
+                    if (User.IsInRole("Admin"))
+                    {
+                        admin = true;
+                    }
+                    var user = User;
+                    bool accessed = true;
+                    int Id = 0;
+                    string switchcase = "Parts";
+                    DbAccesPoint idb = db;
+                    SaveClass.SaveChoice(viewmodel, accessed, Id, switchcase, idb, user, admin);
                     return RedirectToAction("Index");
+                    
                 }
             }
-            return View();
+              return View();
         }
     }
 }
+//using (var context = new ApplicationDbContext())
+//{
+//    if (ModelState.IsValid)
+//    {
+//        
+//    }
+//}

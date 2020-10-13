@@ -1,0 +1,92 @@
+﻿@model Repairshop.ViewModels.PartsEditViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>AmountPartsInStorage</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.amountparts.Part.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.amountparts.Part.Brand, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.amountparts.Part.Brand, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amountparts.Part.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.amountparts.Part.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.amountparts.Part.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amountparts.Part.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.amountparts.Part.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.amountparts.Part.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amountparts.Part.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.amountparts.Part.Price, new { htmlAttributes = new { @class = "form-control set-decimal-number" } })
+                @Html.ValidationMessageFor(model => model.amountparts.Part.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amountparts.AmountInStorage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.amountparts.AmountInStorage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.amountparts.AmountInStorage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".set-decimal-number").trigger("change");
+    });
+    $(".set-decimal-number").on('change', function (e) {
+
+        var number = $(this).val();
+        var inputId = $(this).attr('id');
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Home/SetDecimalNumber",
+            contentType: "application/json",
+            data: JSON.stringify(number),
+            success: function (data) {
+                setNumberInput(inputId, data);
+            }
+        });
+    });
+    function setNumberInput(id, value) {
+        document.getElementById(id).value = value;
+        if (value == "") {
+            document.getElementById(id).focus();
+        }
+        //console.log(id + " " + value);
+    }
+</script>
+
+<script>
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) || /-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+    };
+</script>

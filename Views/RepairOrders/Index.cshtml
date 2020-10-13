@@ -34,35 +34,73 @@
         </th>
     </tr>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.parts.AmountNeeded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.repairGuy.user.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.customer.user.LastName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "DetailsEdit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-     }
+    @foreach (var item in Model)
+    {
+        if (DateTime.Now > item.EndDate || item.StartDate > item.EndDate)
+        {
+            <tr style="background-color:firebrick">
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.parts.AmountNeeded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.repairGuy.user.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customer.user.LastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "DetailsEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.parts.AmountNeeded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.repairGuy.user.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customer.user.LastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "DetailsEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+
 
 </table>
