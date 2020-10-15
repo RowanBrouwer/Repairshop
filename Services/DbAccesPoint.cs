@@ -27,6 +27,8 @@ namespace Repairshop.Services
         IEnumerable<AmountPartsInStorage> GetAllPartsInStorage();
         AmountPartsInStorage getAmountById(int Id);
         part GetPartInfoByAmountId(int id);
+        IEnumerable<RepairGuy> GetRepairGuys();
+        IEnumerable<part> GetParts();
     }
 
     public class DbCommands : DbAccesPoint
@@ -62,6 +64,16 @@ namespace Repairshop.Services
         public part GetPartInfoByAmountId(int id)
         {
             return db.parts.FirstOrDefault(r => r.Id == id);
+        }
+
+        public IEnumerable<part> GetParts()
+        {
+            return db.parts.OrderBy(r => r.Price);
+        }
+
+        public IEnumerable<RepairGuy> GetRepairGuys()
+        {
+            return db.repairGuys.OrderBy(g => g.Complaints);
         }
 
         public IEnumerable<RepairOrder> GetRepairOrders()

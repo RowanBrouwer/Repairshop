@@ -87,18 +87,22 @@ namespace Repairshop.Controllers
             }
             return View();
         }
+
         [HttpGet]
-        [Authorize]
         public ActionResult CreateOrder()
         {
+            var reps = db.GetRepairGuys();
+            var storage = db.GetAllPartsInStorage();
+            var parts = db.GetParts();
+            ViewBag.reps = reps;
+            ViewBag.storage = storage;
+            ViewBag.parts = parts;
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer, Admin")]
         public ActionResult CreateOrder(DetailsEditViewModel viewmodel)
         {
-
             if (viewmodel != null)
             {
                 if (ModelState.IsValid)
@@ -122,10 +126,3 @@ namespace Repairshop.Controllers
         }
     }
 }
-//using (var context = new ApplicationDbContext())
-//{
-//    if (ModelState.IsValid)
-//    {
-//        
-//    }
-//}

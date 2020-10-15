@@ -19,7 +19,7 @@ namespace Repairshop.HelperClasses
         {
             switch (switchcase)
             {
-                case "Parts": SavingParts(viewmodel, accessed, Id, db, user);
+                case "Parts": SavingParts(viewmodel, accessed, Id, db);
                         break;
 
                 case "Orders": SavingOrders(viewmodel, accessed, Id, db, user, admin);
@@ -30,7 +30,7 @@ namespace Repairshop.HelperClasses
                     break;
             }
         }
-        public static void SavingParts(PartsEditViewModel viewmodel, bool accessed, int Id, DbAccesPoint db, dynamic user)
+        public static void SavingParts(PartsEditViewModel viewmodel, bool accessed, int Id, DbAccesPoint db)
         {   
             using (var context = new ApplicationDbContext())
             {
@@ -87,7 +87,8 @@ namespace Repairshop.HelperClasses
                 {
                     var amountchange = context.amountParts.Where(p => p.Id == Order.parts.Id).FirstOrDefault().AmountInStorage;
                     var change = Order.parts.AmountNeeded;
-                    
+                    amountchange = amountchange - change;
+                    Order.parts.inStorage.AmountInStorage = amountchange;
                 }
                 context.SaveChanges();
             }

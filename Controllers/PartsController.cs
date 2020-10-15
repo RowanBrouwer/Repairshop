@@ -57,12 +57,14 @@ namespace Repairshop.Controllers
                 viewModel.amountparts.Part.Price = d;
                 if (ModelState.IsValid)
                 {
+                    var user = User;
+                    bool admin = false;
                     bool accessed = false;
                     string switchcase = "Parts";
                     DbAccesPoint idb = db;
                     if (ModelState.IsValid)
                     {
-                        SaveClass.SaveChoice(viewModel, accessed, Id, switchcase, idb);
+                        SaveClass.SaveChoice(viewModel, accessed, Id, switchcase, idb, user, admin);
                         return RedirectToAction("Index");
                     }
                 }
@@ -84,6 +86,7 @@ namespace Repairshop.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            var reps = db
             return View();
         }
         [HttpPost]
@@ -100,13 +103,15 @@ namespace Repairshop.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    var user = User;
+                    bool admin = false;
                     bool accessed = true;
                     int Id = 0;
                     string switchcase = "Parts";
                     DbAccesPoint idb = db;
                     if (ModelState.IsValid)
                     {
-                        SaveClass.SaveChoice(viewModel, accessed, Id, switchcase, idb);
+                        SaveClass.SaveChoice(viewModel, accessed, Id, switchcase, idb, user, admin);
                         return RedirectToAction("Index");
                     }
                 }
