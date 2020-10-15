@@ -86,7 +86,6 @@ namespace Repairshop.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var reps = db
             return View();
         }
         [HttpPost]

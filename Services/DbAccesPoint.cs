@@ -29,6 +29,8 @@ namespace Repairshop.Services
         part GetPartInfoByAmountId(int id);
         IEnumerable<RepairGuy> GetRepairGuys();
         IEnumerable<part> GetParts();
+        RepairGuy GetRepairGuyByUser(string user);
+        Customer GetCustomerByUser(string user);
     }
 
     public class DbCommands : DbAccesPoint
@@ -46,9 +48,15 @@ namespace Repairshop.Services
             return db.amountParts.FirstOrDefault(r => r.Id == Id);
         }
 
+
         public Customer GetCustomerById(int Id)
         {
             return db.customers.FirstOrDefault(r => r.Id == Id);
+        }
+
+        public Customer GetCustomerByUser(string user)
+        {
+            return db.customers.FirstOrDefault(c => c.user.UserName == user);
         }
 
         public IEnumerable<Customer> GetCustomers()
@@ -71,9 +79,14 @@ namespace Repairshop.Services
             return db.parts.OrderBy(r => r.Price);
         }
 
+        public RepairGuy GetRepairGuyByUser(string user)
+        {
+            return db.repairGuys.FirstOrDefault(r => r.user.UserName == user);
+        }
+
         public IEnumerable<RepairGuy> GetRepairGuys()
         {
-            return db.repairGuys.OrderBy(g => g.Complaints);
+            return db.repairGuys.OrderBy(g => g.Complaints).Include("user");
         }
 
         public IEnumerable<RepairOrder> GetRepairOrders()

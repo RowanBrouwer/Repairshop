@@ -58,6 +58,11 @@ namespace Repairshop.Migrations
                         user = userManager.FindByEmail("Admin1@localhost"),
                     });
 
+                context.customers.Add(
+                    new Customer
+                    {
+                        user = userManager.FindByEmail("Admin1@localhost"),
+                    });
 
 
                 if (result.Succeeded)
@@ -83,6 +88,12 @@ namespace Repairshop.Migrations
                     new RepairGuy
                     {
                         user = userManager.FindByEmail("Admin2@localhost"),
+                    });
+
+                context.customers.Add(
+                    new Customer
+                    {
+                        user = userManager.FindByEmail("Admin1@localhost"),
                     });
 
 

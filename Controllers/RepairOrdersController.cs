@@ -1,9 +1,12 @@
-﻿using Repairshop.HelperClasses;
+﻿using Autofac.Core.Lifetime;
+using Microsoft.AspNet.Identity;
+using Repairshop.HelperClasses;
 using Repairshop.Models;
 using Repairshop.Services;
 using Repairshop.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -75,13 +78,32 @@ namespace Repairshop.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        bool admin = true;
-                        var user = User;
-                        bool accessed = false;
-                        string switchcase = "Parts";
-                        DbAccesPoint idb = db;
-                        SaveClass.SaveChoice(viewmodel, accessed, Id, switchcase, idb, user, admin);
-                        return RedirectToAction("Index");
+                        using (var context = new ApplicationDbContext())
+                        {
+                            RepairOrder order = new RepairOrder();
+                            PartsNeeded needed = new PartsNeeded();
+
+                            needed.PartNeeded = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id);
+                            needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
+                            needed.inStorage = (AmountPartsInStorage)context.amountParts.Where(a => a.Part.Id == needed.PartNeeded.Id);
+                            context.partsNeeded.AddOrUpdate(needed);
+
+                            order.parts = needed;
+
+                            order.repairGuy = viewmodel.order.repairGuy;
+                            order.customer = viewmodel.order.customer;
+
+                            order.status = viewmodel.order.status;
+                            order.StartDate = viewmodel.order.StartDate;
+                            order.EndDate = order.StartDate.AddDays(7);
+
+                            order.Description = viewmodel.order.Description;
+
+                            context.repairOrders.AddOrUpdate(order);
+                            context.SaveChanges();
+
+                            return RedirectToAction("Index");
+                        }
                     }
                 }
             }
@@ -91,9 +113,9 @@ namespace Repairshop.Controllers
         [HttpGet]
         public ActionResult CreateOrder()
         {
-            var reps = db.GetRepairGuys();
-            var storage = db.GetAllPartsInStorage();
-            var parts = db.GetParts();
+            IEnumerable<RepairGuy> reps = db.GetRepairGuys();
+            IEnumerable<AmountPartsInStorage> storage = db.GetAllPartsInStorage();
+            IEnumerable<part> parts = db.GetParts();
             ViewBag.reps = reps;
             ViewBag.storage = storage;
             ViewBag.parts = parts;
@@ -103,26 +125,73 @@ namespace Repairshop.Controllers
         [HttpPost]
         public ActionResult CreateOrder(DetailsEditViewModel viewmodel)
         {
-            if (viewmodel != null)
+            using (var context = new ApplicationDbContext())
             {
+                RepairOrder order = new RepairOrder();
+                PartsNeeded needed = new PartsNeeded();
+                var currentuser = User;
+                
+                if (context.customers.Where(c => c.user == currentuser) == User)
+                {
+                    Customer AdminCustomer = new Customer();
+                    AdminCustomer.user = context.Users.FirstOrDefault(c => c.UserName == currentuser.Identity.Name);
+                    order.repairGuy = db.GetRepairGuyByUser(User.Identity.Name);
+                    context.customers.AddOrUpdate(AdminCustomer);
+                }
+
+                viewmodel.order.customer = db.GetCustomerByUser(User.Identity.Name);
+                viewmodel.order.EndDate = viewmodel.order.StartDate.AddDays(7);
+
                 if (ModelState.IsValid)
                 {
-                    bool admin = false;
-                    if (User.IsInRole("Admin"))
+                    if (User.IsInRole("Customer"))
                     {
-                        admin = true;
+                        
+
+                        needed.PartNeeded = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id);
+                        needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
+                        needed.inStorage = (AmountPartsInStorage)context.amountParts.Where(a => a.Part.Id == needed.PartNeeded.Id);
+                        context.partsNeeded.AddOrUpdate(needed);
+
+                        order.parts = needed;
+
+                        order.repairGuy = viewmodel.order.repairGuy;
+
+                        
+                        order.status = Status.Awaiting;
+                        order.StartDate = viewmodel.order.StartDate;
+                        order.EndDate = viewmodel.order.EndDate;
+
+                        order.Description = viewmodel.order.Description;
+
+                        context.repairOrders.AddOrUpdate(order);
+                        context.SaveChanges();
+
+                        return RedirectToAction("Index");
                     }
-                    var user = User;
-                    bool accessed = true;
-                    int Id = 0;
-                    string switchcase = "Parts";
-                    DbAccesPoint idb = db;
-                    SaveClass.SaveChoice(viewmodel, accessed, Id, switchcase, idb, user, admin);
-                    return RedirectToAction("Index");
-                    
+                    else
+                    {
+                        needed.PartNeeded = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id);
+                        needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
+                        needed.inStorage = (AmountPartsInStorage)context.amountParts.Where(a => a.Part.Id == needed.PartNeeded.Id);
+                        context.partsNeeded.AddOrUpdate(needed);
+
+                        order.parts = needed;
+
+                        order.status = Status.Awaiting;
+                        order.StartDate = viewmodel.order.StartDate;
+                        order.EndDate = viewmodel.order.EndDate;
+
+                        order.Description = viewmodel.order.Description;
+
+                        context.repairOrders.AddOrUpdate(order);
+                        context.SaveChanges();
+
+                        return RedirectToAction("Index");
+                    }
                 }
+                return View();
             }
-              return View();
         }
     }
 }
