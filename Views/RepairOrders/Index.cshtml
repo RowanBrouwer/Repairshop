@@ -38,7 +38,7 @@
     {
         if (DateTime.Now > item.EndDate || item.StartDate > item.EndDate)
         {
-            <tr style="background-color:firebrick">
+            <tr style="background-color:red">
                 <td>
                     @Html.DisplayFor(modelItem => item.status)
                 </td>

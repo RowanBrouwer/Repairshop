@@ -65,7 +65,7 @@ namespace Repairshop.Controllers
                 {
                     order = db.GetOrderById(Id)
                 };
-                return RedirectToAction("Index");
+                return View(editview);
             }
             return View();
         }
@@ -81,26 +81,17 @@ namespace Repairshop.Controllers
                     {
                         using (var context = new ApplicationDbContext())
                         {
-                            RepairOrder order = new RepairOrder();
-                            PartsNeeded needed = new PartsNeeded();
+                            var model = db.GetOrderById(Id);
 
-                            needed.PartNeeded = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id);
-                            needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
-                            needed.inStorage = (AmountPartsInStorage)context.amountParts.Where(a => a.Part.Id == needed.PartNeeded.Id);
-                            context.partsNeeded.AddOrUpdate(needed);
+                            model.parts = viewmodel.order.parts;
+                            model.repairGuy = viewmodel.order.repairGuy;
+                            model.customer = viewmodel.order.customer;
+                            model.Description = viewmodel.order.Description;
+                            model.status = viewmodel.order.status;
+                            model.StartDate = viewmodel.order.StartDate;
+                            model.EndDate = viewmodel.order.EndDate;
 
-                            order.parts = needed;
-
-                            order.repairGuy = viewmodel.order.repairGuy;
-                            order.customer = viewmodel.order.customer;
-
-                            order.status = viewmodel.order.status;
-                            order.StartDate = viewmodel.order.StartDate;
-                            order.EndDate = order.StartDate.AddDays(7);
-
-                            order.Description = viewmodel.order.Description;
-
-                            context.repairOrders.AddOrUpdate(order);
+                            context.repairOrders.AddOrUpdate(model);
                             context.SaveChanges();
 
                             return RedirectToAction("Index");
@@ -128,73 +119,88 @@ namespace Repairshop.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                RepairOrder order = new RepairOrder();
                 PartsNeeded needed = new PartsNeeded();
-                var currentuser = User;
-                
-                if (context.customers.Where(c => c.user == currentuser) == User)
+                var currentuser = User.Identity.Name;
+
+
+                // Here is where a customer is made if an user doesnt have a customer linked to it already//
+                if (context.customers.Where(c => c.user.UserName == currentuser)== null)
                 {
                     Customer AdminCustomer = new Customer();
-                    AdminCustomer.user = context.Users.FirstOrDefault(c => c.UserName == currentuser.Identity.Name);
-                    order.repairGuy = db.GetRepairGuyByUser(User.Identity.Name);
+                    AdminCustomer.user = context.Users.FirstOrDefault(c => c.UserName == currentuser);
                     context.customers.AddOrUpdate(AdminCustomer);
                 }
 
-                viewmodel.order.customer = db.GetCustomerByUser(User.Identity.Name);
-                viewmodel.order.EndDate = viewmodel.order.StartDate.AddDays(7);
+                
 
-                if (ModelState.IsValid)
+                if (User.IsInRole("Customer"))
                 {
-                    if (User.IsInRole("Customer"))
+                    // here the needed part with amount is set //
+                    needed.PartNeeded.Id = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Id;
+                    needed.PartNeeded.Name = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Name;
+                    needed.PartNeeded.Brand = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Brand;
+                    needed.PartNeeded.Type = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Type;
+                    needed.PartNeeded.Price = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Price;
+                    needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
+                    needed.inStorage.AmountInStorage = context.amountParts.FirstOrDefault(p => p.Part.Id == needed.PartNeeded.Id).AmountInStorage;
+                    needed.inStorage.Part = needed.PartNeeded;
+                    //added part and amount that is needed //
+                    context.partsNeeded.AddOrUpdate(needed);
+
+                    // filling in the rest //
+                    viewmodel.order.parts = needed;
+                    viewmodel.order.customer = db.GetCustomerByUser(currentuser);
+                    viewmodel.order.EndDate = viewmodel.order.StartDate.AddDays(7);
+                    viewmodel.order.status = Status.Awaiting;
+                    viewmodel.order.StartDate = viewmodel.order.StartDate;
+                    viewmodel.order.EndDate = viewmodel.order.StartDate.AddDays(7);
+                    viewmodel.order.Description = viewmodel.order.Description;
+
+                    // sh*ts not working //
+                    if (ModelState.IsValid)
                     {
-                        
-
-                        needed.PartNeeded = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id);
-                        needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
-                        needed.inStorage = (AmountPartsInStorage)context.amountParts.Where(a => a.Part.Id == needed.PartNeeded.Id);
-                        context.partsNeeded.AddOrUpdate(needed);
-
-                        order.parts = needed;
-
-                        order.repairGuy = viewmodel.order.repairGuy;
-
-                        
-                        order.status = Status.Awaiting;
-                        order.StartDate = viewmodel.order.StartDate;
-                        order.EndDate = viewmodel.order.EndDate;
-
-                        order.Description = viewmodel.order.Description;
-
-                        context.repairOrders.AddOrUpdate(order);
-                        context.SaveChanges();
-
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        needed.PartNeeded = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id);
-                        needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
-                        needed.inStorage = (AmountPartsInStorage)context.amountParts.Where(a => a.Part.Id == needed.PartNeeded.Id);
-                        context.partsNeeded.AddOrUpdate(needed);
-
-                        order.parts = needed;
-
-                        order.status = Status.Awaiting;
-                        order.StartDate = viewmodel.order.StartDate;
-                        order.EndDate = viewmodel.order.EndDate;
-
-                        order.Description = viewmodel.order.Description;
-
-                        context.repairOrders.AddOrUpdate(order);
+                        context.repairOrders.AddOrUpdate(viewmodel.order);
                         context.SaveChanges();
 
                         return RedirectToAction("Index");
                     }
                 }
+                else
+                {
+                    needed.PartNeeded = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id);
+                    needed.PartNeeded.Name = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Name;
+                    needed.PartNeeded.Brand = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Brand;
+                    needed.PartNeeded.Type = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Type;
+                    needed.PartNeeded.Price = db.GetPartInfoByAmountId(viewmodel.order.parts.PartNeeded.Id).Price;
+
+                    needed.AmountNeeded = viewmodel.order.parts.AmountNeeded;
+
+                    needed.inStorage = context.amountParts.FirstOrDefault(p => p.Part.Id == needed.PartNeeded.Id);
+                    needed.inStorage.AmountInStorage = context.amountParts.FirstOrDefault(p => p.Part.Id == needed.PartNeeded.Id).AmountInStorage;
+                    needed.inStorage.Part = needed.PartNeeded;
+
+                    viewmodel.order.parts = needed;
+
+                    viewmodel.order.status = Status.Awaiting;
+                    viewmodel.order.StartDate = viewmodel.order.StartDate;
+                    viewmodel.order.EndDate = viewmodel.order.StartDate.AddDays(7);
+
+                    viewmodel.order.Description = viewmodel.order.Description;
+                    viewmodel.order.customer = viewmodel.order.customer;
+
+                    // Again, sh*ts not working //
+                    if (ModelState.IsValid)
+                    {
+                        context.repairOrders.AddOrUpdate(viewmodel.order);
+                        context.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
+
                 return View();
             }
         }
-         
+
         [HttpGet]
         [Authorize]
         public ActionResult Delete(int Id)
