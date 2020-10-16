@@ -193,5 +193,40 @@ namespace Repairshop.Controllers
                 return View();
             }
         }
+         
+        [HttpGet]
+        [Authorize]
+        public ActionResult Delete(int Id)
+        {
+            DeleteViewModel deleteViewModel = new DeleteViewModel
+            {
+                order = db.GetOrderById(Id)
+            };
+            return View(deleteViewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(DeleteViewModel DeleteView)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                if (ModelState.IsValid)
+                {
+                    var model = db.GetOrderById(DeleteView.order.Id);
+                    model.customer = DeleteView.order.customer;
+                    model.repairGuy = DeleteView.order.repairGuy;
+                    model.StartDate = DeleteView.order.StartDate;
+                    model.status = DeleteView.order.status;
+                    model.EndDate = DeleteView.order.EndDate;
+                    model.Description = DeleteView.order.Description;
+                    context.repairOrders.Remove(model);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View();
+        }
     }
 }
